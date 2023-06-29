@@ -18,16 +18,18 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=europe/moscow
+      - TZ=Europe/Moscow
       - VERSION=docker
       - PLEX_CLAIM=${PLEX_CLAIM}
     volumes:
       - plex:/config
       - /mnt/Media/Media:/data #path to media storage
+      - /mnt/Media/Foto:/data-foto
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.plex.rule=Host(`plex.ypstudio.ru`)"
+      - "traefik.http.routers.plex.rule=Host(`plex.hogin.pro`)"
+      - "traefik.http.routers.plex.entrypoints=websecure"
       - "traefik.http.services.plex.loadbalancer.server.port=32400"
       - "traefik.http.routers.plex.tls.certresolver=myresolver"
       - "traefik.docker.network=traefik"
